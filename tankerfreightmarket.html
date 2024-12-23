@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PowerBI Dashboard Reports</title>
     <style>
         * {
@@ -15,6 +15,10 @@
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
         }
 
         .container {
@@ -197,6 +201,23 @@
         function updateCounter() {
             counter.textContent = `${currentIndex + 1} / ${powerbiReports.length}`;
         }
+
+        // Prevent zoom gestures
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('gesturestart', function(event) {
+            event.preventDefault();
+        }, { passive: false });
 
         // Add touch event listeners for swipe
         document.querySelector('.slider-container').addEventListener('touchstart', function(e) {
