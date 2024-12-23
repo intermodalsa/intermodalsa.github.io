@@ -14,7 +14,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            touch-action: none;
+            touch-action: pan-y; /* Allow vertical scrolling */
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
@@ -48,7 +48,7 @@
             border: 1px solid #dee2e6;
             border-radius: 4px;
             aspect-ratio: 16/9;
-            touch-action: pan-x;
+            touch-action: pan-x pan-y; /* Allow both horizontal and vertical touch actions */
         }
 
         .powerbi-frame {
@@ -202,14 +202,8 @@
             counter.textContent = `${currentIndex + 1} / ${powerbiReports.length}`;
         }
 
-        // Prevent zoom gestures
+        // Prevent zoom gestures while allowing scrolling
         document.addEventListener('touchstart', function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener('touchmove', function(event) {
             if (event.touches.length > 1) {
                 event.preventDefault();
             }
