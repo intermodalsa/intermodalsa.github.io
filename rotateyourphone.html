@@ -94,15 +94,15 @@
             }
         }
 
-        /* Show on screens up to 1024px wide */
-        @media screen and (max-width: 1024px) {
+        /* Show on screens up to 1024px wide and only in portrait mode */
+        @media screen and (max-width: 1024px) and (orientation: portrait) {
             .rotate-container {
                 display: block;
             }
         }
 
-        /* Hide on screens wider than 1024px */
-        @media screen and (min-width: 1025px) {
+        /* Hide on screens wider than 1024px or in landscape mode */
+        @media screen and (min-width: 1025px), (orientation: landscape) {
             .rotate-container {
                 display: none;
             }
@@ -126,6 +126,25 @@
                 this.style.display = 'none';
             };
         }
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', function() {
+            // Force animation restart by removing and re-adding animation classes
+            const phoneIcon = document.querySelector('.phone-icon');
+            const phoneScreenImg = document.querySelector('.phone-screen img');
+            
+            if (phoneIcon && phoneScreenImg) {
+                phoneIcon.style.animation = 'none';
+                phoneScreenImg.style.animation = 'none';
+                
+                // Trigger reflow
+                void phoneIcon.offsetWidth;
+                void phoneScreenImg.offsetWidth;
+                
+                phoneIcon.style.animation = 'rotatePhone 4s infinite ease-in-out';
+                phoneScreenImg.style.animation = 'logoSize 4s infinite ease-in-out';
+            }
+        });
     </script>
 </body>
 </html>
