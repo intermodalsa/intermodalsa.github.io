@@ -91,10 +91,17 @@
             }
         }
 
-        /* Only show on mobile and tablets */
-        @media screen and (max-width: 1024px) {
+        /* Only show on mobile and tablets in portrait mode */
+        @media screen and (max-width: 1024px) and (orientation: portrait) {
             .rotate-container {
                 display: block;
+            }
+        }
+
+        /* Hide in landscape mode */
+        @media screen and (orientation: landscape) {
+            .rotate-container {
+                display: none;
             }
         }
     </style>
