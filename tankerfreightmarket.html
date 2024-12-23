@@ -126,6 +126,12 @@
                 padding-bottom: calc(75% + 40px); /* Adjusted for nav bar */
                 min-height: auto;
             }
+            .nav-button {
+                pointer-events: auto;
+                touch-action: auto;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                z-index: 1001;
+            }
         }
     </style>
 </head>
@@ -195,12 +201,12 @@
         // Add touch event listeners for swipe
         document.querySelector('.slider-container').addEventListener('touchstart', function(e) {
             touchStartX = e.touches[0].clientX;
-        });
+        }, {passive: true});
 
         document.querySelector('.slider-container').addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].clientX;
             handleSwipe();
-        });
+        }, {passive: true});
 
         function handleSwipe() {
             const swipeDistance = touchEndX - touchStartX;
@@ -215,9 +221,17 @@
             }
         }
 
-        // Add click event listeners to buttons
-        prevButton.addEventListener('click', prevReport);
-        nextButton.addEventListener('click', nextReport);
+        // Add click event listeners to buttons with touch handling
+        function addButtonListeners(button, action) {
+            button.addEventListener('click', action);
+            button.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                action();
+            });
+        }
+
+        addButtonListeners(prevButton, prevReport);
+        addButtonListeners(nextButton, nextReport);
 
         // Add keyboard navigation
         document.addEventListener('keydown', function(event) {
