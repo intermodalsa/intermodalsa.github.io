@@ -110,10 +110,25 @@
     <div class="rotate-container">
         <div class="phone-icon">
             <div class="phone-screen">
-                <img src="https://intermodalsa.github.io/intermodallogo.png" alt="Intermodal Logo">
+                <img src="https://intermodalsa.github.io/intermodallogo.png" alt="Intermodal Logo" loading="lazy" decoding="async">
             </div>
         </div>
         <p class="message">Rotate your phone for best experience</p>
     </div>
+    <script>
+        // Disable third-party cookies warning
+        document.cookie = "CookieControl=true; SameSite=Strict; Secure";
+        
+        // Handle image loading errors
+        const logoImg = document.querySelector('.phone-screen img');
+        logoImg.onerror = () => {
+            logoImg.style.display = 'none';
+        };
+        
+        // Clean up event listeners on page unload
+        window.addEventListener('unload', () => {
+            logoImg.onerror = null;
+        });
+    </script>
 </body>
 </html>
