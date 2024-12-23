@@ -14,6 +14,9 @@
             font-family: Arial, sans-serif;
             background-color: #ffffff;
             touch-action: none; /* Disable all touch gestures */
+            -webkit-touch-callout: none; /* Disable callout */
+            -webkit-user-select: none; /* Disable selection */
+            -webkit-text-size-adjust: none; /* Disable text size adjust */
         }
         .container {
             max-width: 1200px;
@@ -91,11 +94,21 @@
         <iframe src="https://intermodalsa.github.io/tankerfreightmarket.html" width="100%" height="450" frameborder="0"></iframe>
     </div>
     <script>
-        // Prevent pinch zoom
+        // Prevent all touch gestures including pinch zoom
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
         document.addEventListener('touchmove', function(event) {
             if (event.touches.length > 1) {
                 event.preventDefault();
             }
+        }, { passive: false });
+
+        document.addEventListener('gesturestart', function(event) {
+            event.preventDefault();
         }, { passive: false });
 
         let resizeTimeout;
