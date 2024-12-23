@@ -14,7 +14,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            touch-action: none; /* Prevent default touch behaviors */
+            touch-action: none;
         }
 
         .container {
@@ -44,46 +44,68 @@
             border: 1px solid #dee2e6;
             border-radius: 4px;
             aspect-ratio: 16/9;
-            touch-action: pan-x; /* Enable horizontal swiping */
+            touch-action: pan-x;
         }
 
         .powerbi-frame {
             width: 100%;
-            height: 100%;
+            height: calc(100% - 40px); /* Adjusted to make room for nav bar */
             border: none;
-            display: block;
+            display: none;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            pointer-events: none; /* Disable interaction with iframe content */
+            pointer-events: none;
         }
 
-        .slide-counter {
+        .powerbi-frame.active {
+            display: block;
+        }
+
+        .navigation-bar {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            padding: 8px 16px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 4px;
-            display: inline-block;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background-color: #0C3C41;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
             z-index: 1000;
         }
 
-        .footer {
+        .nav-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 15px;
+            transition: transform 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.2);
+        }
+
+        .slide-counter {
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            min-width: 80px;
             text-align: center;
-            padding: 20px;
-            color: #666;
-            margin-top: 20px;
         }
 
         @media (max-width: 768px) {            
             .slider-container {
                 height: 0;
-                padding-bottom: 75%; /* 4:3 aspect ratio */
+                padding-bottom: calc(75% + 40px); /* Adjusted for nav bar */
                 min-height: auto;
             }
         }
@@ -91,7 +113,7 @@
         @media screen and (orientation: landscape) {
             .slider-container {
                 height: calc(100vh - 20px);
-                padding-bottom: 0;
+                padding-bottom: 40px; /* Added for nav bar */
                 min-height: 300px;
                 width: 98vw;
                 margin: 0 auto;
@@ -101,7 +123,7 @@
         @media screen and (orientation: portrait) {
             .slider-container {
                 height: 0;
-                padding-bottom: 75%;
+                padding-bottom: calc(75% + 40px); /* Adjusted for nav bar */
                 min-height: auto;
             }
         }
@@ -109,12 +131,18 @@
 </head>
 <body>
     <div class="slider-container">
-        <iframe id="powerbi-frame" class="powerbi-frame" 
-            allowFullScreen="true" 
-            frameborder="0">
-        </iframe>
+        <iframe id="frame-0" class="powerbi-frame active" allowFullScreen="true" frameborder="0"></iframe>
+        <iframe id="frame-1" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
+        <iframe id="frame-2" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
+        <iframe id="frame-3" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
+        <iframe id="frame-4" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
+        <iframe id="frame-5" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
         
-        <span id="slide-counter" class="slide-counter">1 / 6</span>
+        <div class="navigation-bar">
+            <button class="nav-button" id="prev-button">←</button>
+            <span id="slide-counter" class="slide-counter">1 / 6</span>
+            <button class="nav-button" id="next-button">→</button>
+        </div>
     </div>
 
     <script>
@@ -129,28 +157,34 @@
         ];
 
         let currentIndex = 0;
-        const frame = document.getElementById('powerbi-frame');
+        const frames = Array.from({length: 6}, (_, i) => document.getElementById(`frame-${i}`));
         const counter = document.getElementById('slide-counter');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
         
         let touchStartX = 0;
         let touchEndX = 0;
 
-        // Initialize first report
+        // Initialize all frames
         window.onload = function() {
-            frame.src = powerbiReports[0];
+            frames.forEach((frame, index) => {
+                frame.src = powerbiReports[index];
+            });
             updateCounter();
         }
 
         // Navigation functions
         function nextReport() {
+            frames[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % powerbiReports.length;
-            frame.src = powerbiReports[currentIndex];
+            frames[currentIndex].classList.add('active');
             updateCounter();
         }
 
         function prevReport() {
+            frames[currentIndex].classList.remove('active');
             currentIndex = (currentIndex - 1 + powerbiReports.length) % powerbiReports.length;
-            frame.src = powerbiReports[currentIndex];
+            frames[currentIndex].classList.add('active');
             updateCounter();
         }
 
@@ -170,18 +204,20 @@
 
         function handleSwipe() {
             const swipeDistance = touchEndX - touchStartX;
-            const minSwipeDistance = 50; // Minimum distance for a swipe
+            const minSwipeDistance = 50;
 
             if (Math.abs(swipeDistance) > minSwipeDistance) {
                 if (swipeDistance > 0) {
-                    // Swipe right - go to previous
                     prevReport();
                 } else {
-                    // Swipe left - go to next
                     nextReport();
                 }
             }
         }
+
+        // Add click event listeners to buttons
+        prevButton.addEventListener('click', prevReport);
+        nextButton.addEventListener('click', nextReport);
 
         // Add keyboard navigation
         document.addEventListener('keydown', function(event) {
@@ -194,9 +230,7 @@
 
         // Handle screen orientation changes
         window.addEventListener('orientationchange', function() {
-            // Allow time for the orientation change to complete
             setTimeout(function() {
-                // Force layout recalculation
                 document.body.style.display = 'none';
                 document.body.offsetHeight;
                 document.body.style.display = '';

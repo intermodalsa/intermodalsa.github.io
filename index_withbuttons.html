@@ -57,55 +57,36 @@
             bottom: 0;
         }
 
-        .nav-button {
+        .nav-bar {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #0C3C41;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .nav-button {
             width: 40px;
             height: 40px;
-            background: rgba(26, 35, 126, 0.8);
+            background: transparent;
             color: white;
             border: none;
-            border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s;
-            z-index: 1000;
+            font-size: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-        }
-
-        .nav-button:hover {
-            background: rgba(40, 53, 147, 0.9);
-        }
-
-        .nav-button.left {
-            left: 5px;
-        }
-
-        .nav-button.right {
-            right: 5px;
         }
 
         .slide-counter {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
             color: white;
-            padding: 8px 16px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 4px;
-            display: inline-block;
-            z-index: 1000;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            margin-top: 20px;
+            font-size: 16px;
         }
 
         @media (max-width: 768px) {
@@ -148,9 +129,11 @@
             frameborder="0">
         </iframe>
         
-        <button id="prev-button" class="nav-button left">←</button>
-        <span id="slide-counter" class="slide-counter">1 / 6</span>
-        <button id="next-button" class="nav-button right">→</button>
+        <div class="nav-bar">
+            <button id="prev-button" class="nav-button">←</button>
+            <span id="slide-counter" class="slide-counter">1 / 6</span>
+            <button id="next-button" class="nav-button">→</button>
+        </div>
     </div>
 
     <script>
