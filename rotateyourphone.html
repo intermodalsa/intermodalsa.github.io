@@ -21,6 +21,11 @@
             margin: 0;
             min-height: 100vh;
             max-height: 170px;
+            touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
         }
 
         .rotate-container {
@@ -126,6 +131,23 @@
                 this.style.display = 'none';
             };
         }
+
+        // Prevent zoom gestures
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('gesturestart', function(event) {
+            event.preventDefault();
+        }, { passive: false });
 
         // Handle orientation changes
         window.addEventListener('orientationchange', function() {
