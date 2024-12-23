@@ -19,6 +19,7 @@
             font-family: Arial, sans-serif;
             padding: 0;
             margin: 0;
+            min-height: 100vh;
         }
 
         .rotate-container {
@@ -26,11 +27,12 @@
             text-align: center;
             padding: 0;
             margin-top: 2rem;
+            width: 100%;
         }
 
         .phone-icon {
-            width: 72px; /* 10% smaller */
-            height: 126px; /* 10% smaller */
+            width: 72px;
+            height: 126px;
             border: 4px solid #333;
             border-radius: 12px;
             position: relative;
@@ -43,8 +45,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 58.5px; /* 10% smaller */
-            height: 103.5px; /* 10% smaller */
+            width: 58.5px;
+            height: 103.5px;
             background: #0C3C41;
             border-radius: 4px;
             display: flex;
@@ -62,7 +64,7 @@
 
         .message {
             color: #333;
-            font-size: 1.08rem; /* 10% smaller */
+            font-size: 1.08rem;
             margin-top: 1rem;
             opacity: 0.9;
         }
@@ -91,14 +93,12 @@
             }
         }
 
-        /* Only show on mobile and tablets in portrait mode */
-        @media screen and (max-width: 1024px) and (orientation: portrait) {
-            .rotate-container {
-                display: block;
-            }
+        /* Show on all mobile and tablet devices by default */
+        .rotate-container {
+            display: block;
         }
 
-        /* Hide in landscape mode */
+        /* Hide only in landscape mode */
         @media screen and (orientation: landscape) {
             .rotate-container {
                 display: none;
@@ -110,7 +110,7 @@
     <div class="rotate-container">
         <div class="phone-icon">
             <div class="phone-screen">
-                <img src="intermodallogo.png" alt="Intermodal Logo">
+                <img src="https://intermodalsa.github.io/intermodallogo.png" alt="Intermodal Logo">
             </div>
         </div>
         <p class="message">Rotate your phone for best experience</p>
