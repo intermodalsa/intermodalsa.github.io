@@ -111,18 +111,6 @@
         document.addEventListener('gesturestart', function(event) {
             event.preventDefault();
         }, { passive: false });
-
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(function() {
-                // Optimized resize handling code here
-            }, 250);
-        });
-        window.addEventListener('orientationchange', function() {
-            // Ensure this code does not cause issues during zoom
-            // Review and optimize as needed
-        });
     </script>
 </body>
 </html>
