@@ -14,7 +14,6 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
-            touch-action: none; /* Prevent default touch behaviors */
         }
 
         .container {
@@ -44,7 +43,6 @@
             border: 1px solid #dee2e6;
             border-radius: 4px;
             aspect-ratio: 16/9;
-            touch-action: pan-x; /* Enable horizontal swiping */
         }
 
         .powerbi-frame {
@@ -57,7 +55,37 @@
             left: 0;
             right: 0;
             bottom: 0;
-            pointer-events: none; /* Disable interaction with iframe content */
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(26, 35, 126, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .nav-button:hover {
+            background: rgba(40, 53, 147, 0.9);
+        }
+
+        .nav-button.left {
+            left: 5px;
+        }
+
+        .nav-button.right {
+            right: 5px;
         }
 
         .slide-counter {
@@ -80,7 +108,13 @@
             margin-top: 20px;
         }
 
-        @media (max-width: 768px) {            
+        @media (max-width: 768px) {
+            .nav-button {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+            }
+            
             .slider-container {
                 height: 0;
                 padding-bottom: 75%; /* 4:3 aspect ratio */
@@ -114,7 +148,9 @@
             frameborder="0">
         </iframe>
         
+        <button id="prev-button" class="nav-button left">←</button>
         <span id="slide-counter" class="slide-counter">1 / 6</span>
+        <button id="next-button" class="nav-button right">→</button>
     </div>
 
     <script>
@@ -131,9 +167,8 @@
         let currentIndex = 0;
         const frame = document.getElementById('powerbi-frame');
         const counter = document.getElementById('slide-counter');
-        
-        let touchStartX = 0;
-        let touchEndX = 0;
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
 
         // Initialize first report
         window.onload = function() {
@@ -158,30 +193,9 @@
             counter.textContent = `${currentIndex + 1} / ${powerbiReports.length}`;
         }
 
-        // Add touch event listeners for swipe
-        document.querySelector('.slider-container').addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-        });
-
-        document.querySelector('.slider-container').addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].clientX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeDistance = touchEndX - touchStartX;
-            const minSwipeDistance = 50; // Minimum distance for a swipe
-
-            if (Math.abs(swipeDistance) > minSwipeDistance) {
-                if (swipeDistance > 0) {
-                    // Swipe right - go to previous
-                    prevReport();
-                } else {
-                    // Swipe left - go to next
-                    nextReport();
-                }
-            }
-        }
+        // Add click event listeners to buttons
+        prevButton.addEventListener('click', prevReport);
+        nextButton.addEventListener('click', nextReport);
 
         // Add keyboard navigation
         document.addEventListener('keydown', function(event) {
