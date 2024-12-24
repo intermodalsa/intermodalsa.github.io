@@ -14,7 +14,6 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
-            touch-action: manipulation; /* Allow pinch zoom */
         }
         .swiper {
             width: 100vw;
@@ -37,7 +36,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            touch-action: manipulation; /* Allow button taps */
         }
         .nav-button {
             background: none;
@@ -46,7 +44,6 @@
             font-size: 24px; /* Increased for better touch targets */
             cursor: pointer;
             padding: 8px 16px; /* Increased padding for touch */
-            touch-action: manipulation;
         }
         .slide-counter {
             color: white;
@@ -110,7 +107,6 @@
             grabCursor: true,
             resistance: true,
             resistanceRatio: 0.65,
-            touchRatio: 1,
             on: {
                 slideChange: function () {
                     document.getElementById('slide-counter').textContent = 
