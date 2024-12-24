@@ -4,150 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PowerBI Dashboard Reports</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            touch-action: pan-y; /* Allow vertical scrolling */
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-text-size-adjust: none;
+            background-color: #ffffff;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-            height: auto;
-            min-height: 600px;
+        .swiper {
+            width: 100vw;
+            height: 100vh;
         }
-
-        .dashboard-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            height: auto;
-            min-height: 600px;
-        }
-
-        .slider-container {
-            width: 100%;
-            height: calc(100vh - 200px);
-            min-height: 600px;
-            position: relative;
-            overflow: hidden;
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            aspect-ratio: 16/9;
-            touch-action: pan-x pan-y; /* Allow both horizontal and vertical touch actions */
-        }
-
         .powerbi-frame {
             width: 100%;
-            height: calc(100% - 40px); /* Adjusted to make room for nav bar */
+            height: 100%;
             border: none;
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            pointer-events: none;
         }
-
-        .powerbi-frame.active {
-            display: block;
-        }
-
         .navigation-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background-color: #0C3C41;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-
         .nav-button {
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
-            padding: 0 15px;
-            transition: transform 0.2s;
+            padding: 5px 10px;
         }
-
-        .nav-button:hover {
-            transform: scale(1.2);
-        }
-
         .slide-counter {
             color: white;
-            font-size: 16px;
-            font-weight: 500;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {            
-            .slider-container {
-                height: 0;
-                padding-bottom: calc(75% + 40px); /* Adjusted for nav bar */
-                min-height: auto;
-            }
-        }
-
-        @media screen and (orientation: landscape) {
-            .slider-container {
-                height: calc(100vh - 20px);
-                padding-bottom: 40px; /* Added for nav bar */
-                min-height: 300px;
-                width: 98vw;
-                margin: 0 auto;
-            }
-        }
-
-        @media screen and (orientation: portrait) {
-            .slider-container {
-                height: 0;
-                padding-bottom: calc(75% + 40px); /* Adjusted for nav bar */
-                min-height: auto;
-            }
-            .nav-button {
-                pointer-events: auto;
-                touch-action: auto;
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
-                z-index: 1001;
-            }
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="slider-container">
-        <iframe id="frame-0" class="powerbi-frame active" allowFullScreen="true" frameborder="0"></iframe>
-        <iframe id="frame-1" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
-        <iframe id="frame-2" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
-        <iframe id="frame-3" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
-        <iframe id="frame-4" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
-        <iframe id="frame-5" class="powerbi-frame" allowFullScreen="true" frameborder="0"></iframe>
-        
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <iframe class="powerbi-frame" 
+                    src="https://app.powerbi.com/view?r=eyJrIjoiMTQ0NGVjZjUtZjBmMC00MDIwLWIyNmEtMzQ1MjUwM2U4ZWMxIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+            <div class="swiper-slide">
+                <iframe class="powerbi-frame"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiMzE4YmM2OWYtNWZiNS00OGZhLWE0ZjktZjZhNTg3MTE3MTNiIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+            <div class="swiper-slide">
+                <iframe class="powerbi-frame"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiNTU2Y2IyZGYtZTVkMS00NGViLThkNWEtNzFjYWU0Zjc0OGMwIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+            <div class="swiper-slide">
+                <iframe class="powerbi-frame"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiZmZiZGMyMjItNmFmMi00MTVmLTg3ODAtODUxYmJjZTQ5MjUwIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+            <div class="swiper-slide">
+                <iframe class="powerbi-frame"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiNjI0OTIzNzctNzIzMi00YTExLWIyMzAtMmNlMzg5YzE5NGFlIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+            <div class="swiper-slide">
+                <iframe class="powerbi-frame"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiYTFiNDIzOTEtZDlkMy00NmZhLWIxYmMtOGE2NGRlNjBmOGFkIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+        </div>
+
         <div class="navigation-bar">
             <button class="nav-button" id="prev-button">←</button>
             <span id="slide-counter" class="slide-counter">1 / 6</span>
@@ -155,115 +99,28 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-        // PowerBI Reports Array with optimized parameters
-        const powerbiReports = [
-            "https://app.powerbi.com/view?r=eyJrIjoiMTQ0NGVjZjUtZjBmMC00MDIwLWIyNmEtMzQ1MjUwM2U4ZWMxIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false",
-            "https://app.powerbi.com/view?r=eyJrIjoiMzE4YmM2OWYtNWZiNS00OGZhLWE0ZjktZjZhNTg3MTE3MTNiIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false",
-            "https://app.powerbi.com/view?r=eyJrIjoiNTU2Y2IyZGYtZTVkMS00NGViLThkNWEtNzFjYWU0Zjc0OGMwIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false",
-            "https://app.powerbi.com/view?r=eyJrIjoiZmZiZGMyMjItNmFmMi00MTVmLTg3ODAtODUxYmJjZTQ5MjUwIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false",
-            "https://app.powerbi.com/view?r=eyJrIjoiNjI0OTIzNzctNzIzMi00YTExLWIyMzAtMmNlMzg5YzE5NGFlIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false",
-            "https://app.powerbi.com/view?r=eyJrIjoiYTFiNDIzOTEtZDlkMy00NmZhLWIxYmMtOGE2NGRlNjBmOGFkIiwidCI6IjFkNTE5NTZiLTBlZmItNDRiZC05OTU1LTcwNzQwOWU3ZmQ2YiIsImMiOjl9&pageView=fitToWidth&actionBarEnabled=false&filterPaneEnabled=false&navContentPaneEnabled=false&interactivityDisabled=false&filterPaneEnabled=false&navContentPaneEnabled=false"
-        ];
-
-        let currentIndex = 0;
-        const frames = Array.from({length: 6}, (_, i) => document.getElementById(`frame-${i}`));
-        const counter = document.getElementById('slide-counter');
-        const prevButton = document.getElementById('prev-button');
-        const nextButton = document.getElementById('next-button');
-        
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        // Initialize all frames
-        window.onload = function() {
-            frames.forEach((frame, index) => {
-                frame.src = powerbiReports[index];
-            });
-            updateCounter();
-        }
-
-        // Navigation functions
-        function nextReport() {
-            frames[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % powerbiReports.length;
-            frames[currentIndex].classList.add('active');
-            updateCounter();
-        }
-
-        function prevReport() {
-            frames[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex - 1 + powerbiReports.length) % powerbiReports.length;
-            frames[currentIndex].classList.add('active');
-            updateCounter();
-        }
-
-        function updateCounter() {
-            counter.textContent = `${currentIndex + 1} / ${powerbiReports.length}`;
-        }
-
-        // Prevent zoom gestures while allowing scrolling
-        document.addEventListener('touchstart', function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-
-        document.addEventListener('gesturestart', function(event) {
-            event.preventDefault();
-        }, { passive: false });
-
-        // Add touch event listeners for swipe
-        document.querySelector('.slider-container').addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-        }, {passive: true});
-
-        document.querySelector('.slider-container').addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].clientX;
-            handleSwipe();
-        }, {passive: true});
-
-        function handleSwipe() {
-            const swipeDistance = touchEndX - touchStartX;
-            const minSwipeDistance = 50;
-
-            if (Math.abs(swipeDistance) > minSwipeDistance) {
-                if (swipeDistance > 0) {
-                    prevReport();
-                } else {
-                    nextReport();
+        const swiper = new Swiper('.swiper', {
+            initialSlide: 0,
+            speed: 500,
+            grabCursor: true,
+            resistance: true,
+            resistanceRatio: 0.65,
+            on: {
+                slideChange: function () {
+                    document.getElementById('slide-counter').textContent = 
+                        `${this.activeIndex + 1} / ${this.slides.length}`;
                 }
-            }
-        }
-
-        // Add click event listeners to buttons with touch handling
-        function addButtonListeners(button, action) {
-            button.addEventListener('click', action);
-            button.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                action();
-            });
-        }
-
-        addButtonListeners(prevButton, prevReport);
-        addButtonListeners(nextButton, nextReport);
-
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight') {
-                nextReport();
-            } else if (event.key === 'ArrowLeft') {
-                prevReport();
             }
         });
 
-        // Handle screen orientation changes
-        window.addEventListener('orientationchange', function() {
-            setTimeout(function() {
-                document.body.style.display = 'none';
-                document.body.offsetHeight;
-                document.body.style.display = '';
-            }, 100);
+        document.getElementById('prev-button').addEventListener('click', () => {
+            swiper.slidePrev();
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            swiper.slideNext();
         });
     </script>
 </body>
