@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0">
     <title>Monthly Report Nov 2024 Tanker Sector</title>
     <style>
         * {
@@ -13,10 +13,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
-            touch-action: pan-y; /* Allow vertical scrolling */
-            -webkit-touch-callout: none; /* Disable callout */
-            -webkit-user-select: none; /* Vendor prefix */
-            user-select: none; /* Standard property for compatibility */
+            touch-action: manipulation; /* Allow pinch zoom and scrolling */
             -webkit-text-size-adjust: none; /* Disable text size adjust */
         }
         .container {
@@ -53,7 +50,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             background: #fff;
-            touch-action: none;
+            touch-action: manipulation;
             pointer-events: none;
         }
         .rotate-notice {
@@ -97,26 +94,8 @@
         <iframe src="https://intermodalsa.github.io/tankerfreightmarket.html" width="100%" height="450" frameborder="0"></iframe>
     </div>
     <script>
-        // Only prevent pinch zoom while allowing scrolling
-        document.addEventListener('touchstart', function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-
-        // Remove touchmove prevention to allow scrolling
-        
-        document.addEventListener('gesturestart', function(event) {
-            event.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener('gesturechange', function(event) {
-            event.preventDefault();
-        }, { passive: false });
-
-        document.addEventListener('gestureend', function(event) {
-            event.preventDefault(); 
-        }, { passive: false });
+        // Allow all touch interactions including pinch zoom
+        // No need to prevent default behaviors
     </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0">
     <title>PowerBI Dashboard Reports</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <style>
@@ -14,6 +14,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #ffffff;
+            touch-action: manipulation; /* Allow pinch zoom */
         }
         .swiper {
             width: 100vw;
@@ -36,18 +37,20 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            touch-action: manipulation; /* Allow button taps */
         }
         .nav-button {
             background: none;
             border: none;
             color: white;
-            font-size: 20px;
+            font-size: 24px; /* Increased for better touch targets */
             cursor: pointer;
-            padding: 5px 10px;
+            padding: 8px 16px; /* Increased padding for touch */
+            touch-action: manipulation;
         }
         .slide-counter {
             color: white;
-            font-size: 14px;
+            font-size: 16px; /* Slightly larger for readability */
         }
     </style>
 </head>
@@ -107,6 +110,7 @@
             grabCursor: true,
             resistance: true,
             resistanceRatio: 0.65,
+            touchRatio: 1,
             on: {
                 slideChange: function () {
                     document.getElementById('slide-counter').textContent = 
